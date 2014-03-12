@@ -46,6 +46,7 @@ class SnakeParser(object):
             response = urllib.urlopen(url)
         except Exception as e:
             print "%s: %s"%(Exception, e)
+            return
         html_text = response.read()
         self.process_page(url, parent, html_text)
         soup = BeautifulSoup(html_text)
