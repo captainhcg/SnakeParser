@@ -23,8 +23,8 @@
 /*  to do:
  *  ======
  */
-
-function initClearlyComponent__detect(_paramInstance) {
+var initClearlyComponent__detect;
+exports.init = function(_paramInstance) {
 
 
 //  global instance reference {
@@ -2456,3 +2456,4 @@ function initClearlyComponent__detect(_paramInstance) {
 
 
 return $D; }
+
