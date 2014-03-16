@@ -9,24 +9,22 @@ var global = this;
 
 mongoclient.open(function(err, mongoclient) {
     var db = mongoclient.db(setting.db_config.name);
-    db.collection('Page').find().sort( { url: 1 } ).toArray(function(err, pages){
+    db.collection('Page').find({clean: {$exists: false}}).sort( { url: 1 } ).toArray(function(err, pages){
         pages.forEach(function(p, idx){
-            console.log(idx+": "+p.url)
-            if(idx<1970)
-                return
+            console.log(idx+": "+p.url);
             var html = p.html;
             html = html.replace(/<\/font>/g,"").replace(/<font.*?>/g,"");
             if(html.indexOf('<html') < 0){
                 html = '<!doctype html><html><body>'+ html + '</body></html>';
-
             }
+            var document, window, jquery;
             try{
-                var document = jsdom.jsdom(html);
-                var window = document.parentWindow;
-                var jquery = require('jquery')(window);
+                document = jsdom.jsdom(html);
+                window = document.parentWindow;
+                jquery = require('jquery')(window);
             }
             catch(err){
-                console.log(err)
+                console.log(err);
                 return;
             }
             var _detect = {
@@ -39,7 +37,7 @@ mongoclient.open(function(err, mongoclient) {
                             }else{
                                 console.log("score succeded");
                             }
-                        })
+                        });
                     }
                 },
                 'window': window,
