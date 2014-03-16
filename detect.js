@@ -465,6 +465,7 @@ exports.init = function(_paramInstance) {
 
     $D.isNodeHidden = function (_node, _tag_name)
     {
+        return false;
         switch (true)
         {
             case (_node.offsetWidth > 0):
